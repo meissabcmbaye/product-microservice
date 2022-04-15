@@ -2,7 +2,6 @@ package com.barandar.product.service.mapper;
 
 import com.barandar.product.domain.*;
 import com.barandar.product.service.dto.ProductDTO;
-import java.util.Set;
 import org.mapstruct.*;
 
 /**
