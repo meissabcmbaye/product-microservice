@@ -1,0 +1,30 @@
+{
+  "name": "Image",
+  "fields": [
+    {
+      "fieldName": "imageURL",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "images",
+      "relationshipName": "product"
+    }
+  ],
+  "entityTableName": "image",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": ["product"],
+  "microserviceName": "product",
+  "clientRootFolder": "product",
+  "databaseType": "sql",
+  "changelogDate": "20210720111550"
+}
