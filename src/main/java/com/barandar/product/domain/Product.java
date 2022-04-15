@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 /**
  * A Product.

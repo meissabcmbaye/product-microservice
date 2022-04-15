@@ -1,7 +1,6 @@
 package com.barandar.product.repository;
 
 import com.barandar.product.domain.Product;
-import com.barandar.product.service.dto.ProductDTO;
 
 import java.util.List;
 import java.util.Optional;
