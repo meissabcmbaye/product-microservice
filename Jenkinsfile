@@ -44,8 +44,8 @@ pipeline {
             stage('OWASP Dependency-Check Vulnerabilities') {
                 steps {
                     sh """ ./mvnw dependency-check:check """
+                    dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
                 }
-                dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
             }
 
             stage('SonarQube Analysis') {
