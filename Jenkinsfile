@@ -23,7 +23,7 @@ pipeline {
             // Sensitive Information Scanning with Trivy
             stage('Iac Sensitive Information Scanning') {
                 steps {
-                    sh """ docker run aquasec/trivy --no-progress --exit-code 1 --severity HIGH,CRITICAL repo ${iacRepo} """
+                    sh """ docker run aquasec/trivy repo --no-progress --exit-code 1 --severity HIGH,CRITICAL ${iacRepo} """
                 }
             }
 
@@ -88,7 +88,7 @@ pipeline {
             // Image Vulnerability Scan with Trivy
             stage('Image Vulnerability Scan') {
                 steps {
-                    sh """ docker run aquasec/trivy --no-progress --exit-code 1 --severity HIGH,CRITICAL image product:latest """
+                    sh """ docker run aquasec/trivy image --no-progress --exit-code 1 --severity HIGH,CRITICAL product:latest """
                 }
             }
 
