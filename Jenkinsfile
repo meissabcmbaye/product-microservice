@@ -49,13 +49,13 @@ pipeline {
             }
 
             stage('SonarQube Analysis') {
-                agent any
-                when {
-                    anyOf { branch 'dev'
-                            branch 'staging'
-                            branch 'master'
-                    }
-                }
+                // agent any
+                // when {
+                //     anyOf { branch 'dev'
+                //             branch 'staging'
+                //             branch 'master'
+                //     }
+                // }
                 steps {
                     withSonarQubeEnv('devsecops-sonarqube') {
                         sh './mvnw clean install'
@@ -65,13 +65,13 @@ pipeline {
             }
 
             stage('Quality Gate') {
-                when {
-                    anyOf {
-                            branch 'dev'
-                            branch 'staging'
-                            branch 'master'
-                    }
-                }
+                // when {
+                //     anyOf {
+                //             branch 'dev'
+                //             branch 'staging'
+                //             branch 'master'
+                //     }
+                // }
                 steps {
                     timeout(time: 10, unit: 'MINUTES') {
                         waitForQualityGate abortPipeline: true
