@@ -86,7 +86,7 @@ pipeline {
                             docker tag product:latest product:dev-${shortCommit}
                             docker tag product:latest product:staging-${shortCommit}
                             echo "Tag and push dev and staging docker images."
-                           """
+                        """
                 }
             }
 
@@ -104,7 +104,6 @@ pipeline {
                             docker rmi product:dev-${shortCommit}
                             docker rmi product:staging-${shortCommit}
                             echo "Environment cleaned."
-
                            """
                 }
             }
