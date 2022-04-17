@@ -1,5 +1,6 @@
 pipeline {
         agent any
+        
         environment {
             def shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
             def author = sh(returnStdout: true, script: 'git show -s --pretty=%an').trim()
@@ -7,6 +8,7 @@ pipeline {
             def iacRepo = "https://github.com/meissabcmbaye/devsecops-iac"
             def microserviceURL = "http://192.168.49.2:30434"
         }
+
         stages {
             stage('Checkout SCM') {
                 steps {
