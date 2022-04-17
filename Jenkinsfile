@@ -93,7 +93,7 @@ pipeline {
             // DAST with OWASP ZAP
             stage('Dynamic Application Analysis') {
                 steps {
-                    sh """ docker run --rm -t owasp/zap2docker-stable zap-baseline.py -x -J -t ${microserviceURL} || true """
+                    sh """ docker run --rm -t owasp/zap2docker-stable zap-baseline.py -t ${microserviceURL} """
                 }
             }
 
