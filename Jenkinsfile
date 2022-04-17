@@ -93,7 +93,7 @@ pipeline {
             // DAST with OWASP ZAP
             stage('Dynamic Application Analysis') {
                 steps {
-                    sh """ docker run -t owasp/zap2docker-stable zap-baseline.py -x -J -t ${microserviceURL} || true """
+                    sh """ docker run --rm -t owasp/zap2docker-stable zap-baseline.py -x -J -t ${microserviceURL} || true """
                 }
             }
 
@@ -110,27 +110,27 @@ pipeline {
             }
 
             stage('GitOps Dev') {
-                when {
-                    branch 'dev'
-                }
+                // when {
+                //     branch 'dev'
+                // }
                 steps {
                     sh """ echo "Deploy to dev environment" """
                 }
             }
 
             stage('GitOps staging ') {
-                when {
-                    branch 'staging'
-                }
+                // when {
+                //     branch 'staging'
+                // }
                 steps {
                     sh """ echo "Deploy to staging environment" """
                 }
             }
 
             stage('GitOps master ') {
-                when {
-                    branch 'master'
-                }
+                // when {
+                //     branch 'master'
+                // }
                 steps {
                     sh """ echo "Deploy to dev and staging environment" """
                 }
