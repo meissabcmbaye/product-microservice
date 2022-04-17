@@ -23,7 +23,7 @@ pipeline {
             // Sensitive Information Scanning with Trivy
             stage('Iac Sensitive Information Scanning') {
                 steps {
-                    sh """ docker run aquasec/trivy repo --no-progress --exit-code 1 --severity HIGH,CRITICAL ${iacRepo} """
+                    sh """ docker run --rm aquasec/trivy repo --no-progress --exit-code 1 --severity HIGH,CRITICAL ${iacRepo} """
                 }
             }
 
@@ -49,13 +49,6 @@ pipeline {
             }
 
             stage('SonarQube Analysis') {
-                // agent any
-                // when {
-                //     anyOf { branch 'dev'
-                //             branch 'staging'
-                //             branch 'master'
-                //     }
-                // }
                 steps {
                     withSonarQubeEnv('devsecops-sonarqube') {
                         sh './mvnw clean install'
@@ -65,13 +58,6 @@ pipeline {
             }
 
             stage('Quality Gate') {
-                // when {
-                //     anyOf {
-                //             branch 'dev'
-                //             branch 'staging'
-                //             branch 'master'
-                //     }
-                // }
                 steps {
                     timeout(time: 10, unit: 'MINUTES') {
                         waitForQualityGate abortPipeline: true
@@ -81,20 +67,20 @@ pipeline {
 
             stage('Build Docker Image') {
                 steps {
-                sh """ ./mvnw package verify jib:dockerBuild """
+                    sh """ ./mvnw package verify jib:dockerBuild """
                 }
             }
 
             // Image Vulnerability Scan with Trivy
             stage('Image Vulnerability Scan') {
                 steps {
-                    sh """ docker run aquasec/trivy image --no-progress --exit-code 1 --severity HIGH,CRITICAL product:latest """
+                    sh """ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --no-progress --exit-code 1 --severity HIGH,CRITICAL product:latest """
                 }
             }
 
             stage('Tag and Publish Docker image') {
                 steps {
-                sh """
+                    sh """
                             docker tag product:latest product:dev-${shortCommit}
                             docker tag product:latest product:staging-${shortCommit}
                             echo "Tag and push dev and staging docker images."
@@ -111,7 +97,7 @@ pipeline {
 
             stage('Clean Env') {
                 steps {
-                sh """
+                    sh """
                             docker rmi product:latest
                             docker rmi product:dev-${shortCommit}
                             docker rmi product:staging-${shortCommit}
